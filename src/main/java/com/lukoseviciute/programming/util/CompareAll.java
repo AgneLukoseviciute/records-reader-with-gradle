@@ -21,13 +21,9 @@ public class CompareAll {
         xmlAthleteList = xmlRead.intoObjects(xmlFile);
     }
 
-    //TODO: change to three paramter method and include comparisons w XML file
-    public void printDifferences(List<Athlete> csvObjectList, List<Athlete> jsonObjectList) {
-        for (int i = 0; i < csvObjectList.size(); i++) {
-            Athlete currCsvAthlete = csvObjectList.get(i);
-            Athlete currJsonAthlete = jsonObjectList.get(i);
-            currCsvAthlete.checkForDifferences(currJsonAthlete);
-        }
+    public void compare(){
+        CompareHelper.checkForDifferences(csvAthleteList, jsonAthleteList, "JSON");
+        CompareHelper.checkForDifferences(csvAthleteList, xmlAthleteList, "XML");
     }
 
     public List<Athlete> getCsvAthleteList() {

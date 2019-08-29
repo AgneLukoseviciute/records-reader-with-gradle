@@ -36,3 +36,29 @@ public class XMLFileReader implements FileReaderI {
     }
 
 }
+
+/* String xml = "<Response><data>123414234</data></Response>";
+
+        JAXBContext jaxbContext = null;
+        Response respOut = null;
+        try {
+            jaxbContext = JAXBContext.newInstance(Response.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            StringReader xmlReader = new StringReader(xml);
+            respOut = (Response) unmarshaller.unmarshal(xmlReader);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        System.out.println("result: " + respOut.data );
+
+*/
+
+
+
+/* @XmlRootElement(name = "Response")
+    static class Response{
+
+        @XmlElement
+        String data;
+    }
+*/
