@@ -15,4 +15,5 @@ mainClassName = "com.lukoseviciute.programming.Main"
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
