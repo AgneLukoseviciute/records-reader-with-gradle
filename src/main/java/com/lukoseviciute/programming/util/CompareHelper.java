@@ -2,6 +2,7 @@ package com.lukoseviciute.programming.util;
 
 import com.lukoseviciute.programming.models.Athlete;
 
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class CompareHelper {
@@ -15,6 +16,9 @@ public abstract class CompareHelper {
     }
 
     public static void checkForDifferences(List<Athlete> csvAthletes, List<Athlete> otherAthletes, String otherFileType){
+        HashMap<String, Athlete> diffsInfo = new HashMap<String, Athlete>();
+        //doStuff
+        PrintDifferences.printDiffsHashMap(diffsInfo, otherFileType);
 
     }
 
