@@ -2,12 +2,24 @@ package com.lukoseviciute.programming.util;
 
 import com.lukoseviciute.programming.models.Athlete;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CompareHelper {
 
-    public static void checkForDifferences(Athlete csvAthlete, Athlete otherAthlete) {
+    private static ArrayList<Mismatch> diffsInfo = new ArrayList<Mismatch>();
+
+    public static void checkForDifferences(List<Athlete> csvAthletes, List<Athlete> otherAthletes, String otherFileType){
+
+        //TODO: shouldn't need the -1 ??
+        for (int i = 0; i < (csvAthletes.size()-1) ; i++) {
+            checkAllAttributes(csvAthletes.get(i), otherAthletes.get(i));
+        }
+
+        PrintDifferences.printDiffs(diffsInfo, otherFileType);
+    }
+
+    public static void checkAllAttributes(Athlete csvAthlete, Athlete otherAthlete) {
         checkRank(csvAthlete, otherAthlete);
         checkMark(csvAthlete, otherAthlete);
         checkName(csvAthlete, otherAthlete);
@@ -15,16 +27,25 @@ public abstract class CompareHelper {
         checkLocation(csvAthlete, otherAthlete);
     }
 
-    public static void checkForDifferences(List<Athlete> csvAthletes, List<Athlete> otherAthletes, String otherFileType){
-        HashMap<String, Athlete> diffsInfo = new HashMap<String, Athlete>();
-        //doStuff
-        PrintDifferences.printDiffsHashMap(diffsInfo, otherFileType);
+    static class Mismatch{
+        String athleteName;
+        String attribute;
+        String trueVal;
+        String otherVal;
 
+        public Mismatch(String name, String type, String val1, String val2){
+            this.athleteName = name;
+            this.attribute = type;
+            this.trueVal = val1;
+            this.otherVal = val2;
+        }
     }
 
     public static void checkRank(Athlete csvAthlete, Athlete otherAthlete) {
         if (csvAthlete.getRank() != otherAthlete.getRank()){
-            System.out.println("Athlete: " + csvAthlete.getName() + ". Mismatch value: rank. CSV: " + csvAthlete.getRank() + ", JSON: " + otherAthlete.getRank());
+            Mismatch tweak = new Mismatch
+                    (csvAthlete.getName(), "Rank", Integer.toString(csvAthlete.getRank()), Integer.toString(otherAthlete.getRank()));
+            diffsInfo.add(tweak);
         }
         else
             return;
@@ -32,7 +53,9 @@ public abstract class CompareHelper {
 
     public static void checkMark(Athlete csvAthlete, Athlete otherAthlete) {
         if (!(csvAthlete.getMark().equals(otherAthlete.getMark()))) {
-            System.out.println("Athlete: " + csvAthlete.getName() + ". Mismatch value: mark. CSV: " + csvAthlete.getMark() + ", JSON: " + otherAthlete.getMark());
+            Mismatch tweak = new Mismatch
+                    (csvAthlete.getName(), "Mark", csvAthlete.getMark(), otherAthlete.getMark());
+            diffsInfo.add(tweak);
         }
         else
             return;
@@ -40,7 +63,9 @@ public abstract class CompareHelper {
 
     public static void checkName(Athlete csvAthlete, Athlete otherAthlete) {
         if (!(csvAthlete.getName().equals(otherAthlete.getName()))) {
-            System.out.println("Athlete: " + csvAthlete.getName() + ". Mismatch value: name. CSV: " + csvAthlete.getName() + ", JSON: " + otherAthlete.getName());
+            Mismatch tweak = new Mismatch
+                    (csvAthlete.getName(), "Name", csvAthlete.getName(), otherAthlete.getName());
+            diffsInfo.add(tweak);
         }
         else
             return;
@@ -48,7 +73,9 @@ public abstract class CompareHelper {
 
     public static void checkDate(Athlete csvAthlete, Athlete otherAthlete) {
         if (!(csvAthlete.getDate().equals(otherAthlete.getDate()))) {
-            System.out.println("Athlete: " + csvAthlete.getName() + ". Mismatch value: date. CSV: " + csvAthlete.getDate() + ", JSON: " + otherAthlete.getDate());
+            Mismatch tweak = new Mismatch
+                    (csvAthlete.getName(), "Date", csvAthlete.getDate(), otherAthlete.getDate());
+            diffsInfo.add(tweak);
         }
         else
             return;
@@ -56,7 +83,9 @@ public abstract class CompareHelper {
 
     public static void checkLocation(Athlete csvAthlete, Athlete otherAthlete) {
         if (!(csvAthlete.getLocation().equals(otherAthlete.getLocation()))) {
-            System.out.println("Athlete: " + csvAthlete.getName() + ". Mismatch value: location. CSV: " + csvAthlete.getLocation() + ", JSON: " + otherAthlete.getLocation());
+            Mismatch tweak = new Mismatch
+                    (csvAthlete.getName(), "Location", csvAthlete.getLocation(), otherAthlete.getLocation());
+            diffsInfo.add(tweak);
         }
         else
             return;

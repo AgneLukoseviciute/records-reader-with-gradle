@@ -22,18 +22,23 @@ public class Athlete {
 
     @SerializedName("Rank")
     @Expose
+    @XmlElement(name = "Rank")
     private int rank;
     @SerializedName("Mark")
     @Expose
+    @XmlElement(name = "Mark")
     private String mark;
     @SerializedName("Athlete")
     @Expose
+    @XmlElement(name = "Athlete")
     private String name;
     @SerializedName("Date")
     @Expose
+    @XmlElement(name = "Date")
     private String date;
     @SerializedName("Location")
     @Expose
+    @XmlElement(name = "Location")
     private String location;
 
     public int getRank() {

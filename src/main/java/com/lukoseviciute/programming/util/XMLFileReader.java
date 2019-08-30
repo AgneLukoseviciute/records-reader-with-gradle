@@ -21,11 +21,12 @@ public class XMLFileReader implements FileReaderI {
     public List<Athlete> intoObjects(String xmlStr){
         File xmlFile = new File(xmlStr);
 
-        JAXBContext jc = null;
+        JAXBContext jaxbContext = null;
+        XMLRoot root = null;
         try {
-            jc = JAXBContext.newInstance(XMLRoot.class);
-            Unmarshaller unmarshaller = jc.createUnmarshaller();
-            XMLRoot root = (XMLRoot) unmarshaller.unmarshal(xmlFile);
+            jaxbContext = JAXBContext.newInstance(XMLRoot.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            root = (XMLRoot) unmarshaller.unmarshal(xmlFile);
             xmlAthleteList = root.getArray();
 
         } catch (JAXBException e) {
