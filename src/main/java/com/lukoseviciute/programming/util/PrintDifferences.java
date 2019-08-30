@@ -1,10 +1,9 @@
 package com.lukoseviciute.programming.util;
 
-import com.lukoseviciute.programming.models.Athlete;
 import com.lukoseviciute.programming.models.Mismatch;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 public abstract class PrintDifferences {
 
@@ -21,5 +20,9 @@ public abstract class PrintDifferences {
             }
             System.out.println();
         }
+    }
+
+    public static void printEntryMissing(String athleteName, String wrongFileType){
+        System.out.println("Missing entry for athlete: " + athleteName + " in " + wrongFileType + " file.");
     }
 }

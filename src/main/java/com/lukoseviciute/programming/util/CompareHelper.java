@@ -12,9 +12,17 @@ public abstract class CompareHelper {
 
     public static void checkForDifferences(List<Athlete> csvAthletes, List<Athlete> otherAthletes, String otherFileType){
 
-        //TODO: shouldn't need the -1 ??
-        for (int i = 0; i < (csvAthletes.size() - 1) ; i++) {
-            checkAllAttributes(csvAthletes.get(i), otherAthletes.get(i));
+        int otherIndex = 0;
+
+        for (int i = 0; i < csvAthletes.size() ; i++) {
+
+            if (!csvAthletes.get(i).getName().equals(otherAthletes.get(otherIndex).getName())){
+                PrintDifferences.printEntryMissing(csvAthletes.get(i).getName(), otherFileType);
+            }
+            else {
+                checkAllAttributes(csvAthletes.get(i), otherAthletes.get(otherIndex));
+                otherIndex++;
+            }
         }
 
         PrintDifferences.printDiffs(diffsInfo, otherFileType);
@@ -23,7 +31,6 @@ public abstract class CompareHelper {
     public static void checkAllAttributes(Athlete csvAthlete, Athlete otherAthlete) {
         checkRank(csvAthlete, otherAthlete);
         checkMark(csvAthlete, otherAthlete);
-        checkName(csvAthlete, otherAthlete);
         checkDate(csvAthlete, otherAthlete);
         checkLocation(csvAthlete, otherAthlete);
     }
@@ -49,7 +56,8 @@ public abstract class CompareHelper {
             return;
     }
 
-    public static void checkName(Athlete csvAthlete, Athlete otherAthlete) {
+   //Names must match, otherwise unable to check for missing values
+    /* public static void checkName(Athlete csvAthlete, Athlete otherAthlete) {
         if (!(csvAthlete.getName().equals(otherAthlete.getName()))) {
             Mismatch tweak = new Mismatch
                     (csvAthlete.getName(), "Name", csvAthlete.getName(), otherAthlete.getName());
@@ -57,7 +65,7 @@ public abstract class CompareHelper {
         }
         else
             return;
-    }
+    }*/
 
     public static void checkDate(Athlete csvAthlete, Athlete otherAthlete) {
         if (!(csvAthlete.getDate().equals(otherAthlete.getDate()))) {
