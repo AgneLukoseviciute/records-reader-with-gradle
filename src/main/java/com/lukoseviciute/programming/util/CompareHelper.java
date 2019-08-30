@@ -1,6 +1,7 @@
 package com.lukoseviciute.programming.util;
 
 import com.lukoseviciute.programming.models.Athlete;
+import com.lukoseviciute.programming.models.Mismatch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public abstract class CompareHelper {
     public static void checkForDifferences(List<Athlete> csvAthletes, List<Athlete> otherAthletes, String otherFileType){
 
         //TODO: shouldn't need the -1 ??
-        for (int i = 0; i < (csvAthletes.size()-1) ; i++) {
+        for (int i = 0; i < (csvAthletes.size() - 1) ; i++) {
             checkAllAttributes(csvAthletes.get(i), otherAthletes.get(i));
         }
 
@@ -27,19 +28,6 @@ public abstract class CompareHelper {
         checkLocation(csvAthlete, otherAthlete);
     }
 
-    static class Mismatch{
-        String athleteName;
-        String attribute;
-        String trueVal;
-        String otherVal;
-
-        public Mismatch(String name, String type, String val1, String val2){
-            this.athleteName = name;
-            this.attribute = type;
-            this.trueVal = val1;
-            this.otherVal = val2;
-        }
-    }
 
     public static void checkRank(Athlete csvAthlete, Athlete otherAthlete) {
         if (csvAthlete.getRank() != otherAthlete.getRank()){
